@@ -22,9 +22,12 @@ app.engine(
 
 app.set("view engine", "handlebars")
 
+// const scripts = { script:  }
+
 app.get("/", (req, res) => {
     res.render("index", {
-        title: "Welcome"
+        title: "Welcome",
+        scripts: "./lib/drag_drop.js"
     })
 })
 

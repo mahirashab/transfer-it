@@ -1,0 +1,46 @@
+<form action="/upload" id="dragFileForm" method="POST">
+
+
+    <lable for="fileInput" id="fileLable" class="d-block p-3 bg-secondary text-white text-center pt-3 pb-3 mt-3 mb-3 text-capitalize lead rounded"
+        style="height: 150px;" ondragover="overrideDefault(event)" ondragenter="overrideDefault(event)" ondragleave="overrideDefault(event)"
+        ondrop="overrideDefault(event);addFiles(event);" onclick="clicked()">
+        <i class="fas fa-download fa-3x pb-2"></i>
+        <br>
+        <span id="fileLableText">[ Drag and drop or click to add file]</span>
+
+    </lable>
+
+    <input type="file" name="files" id="fileInput" class="d-none" multiple onchange="addFiles(event)">
+
+    <input type="submit" value="upload" class="btn btn-outline-primary btn-lg btn-block">
+</form>
+
+<script type="text/javascript">
+
+    const fileLableText = document.getElementById('fileLableText')
+    const fileInput = document.getElementById('fileInput')
+
+    const resetText = () => {
+        fileInput.innerHTML = 'mahir'
+    }
+
+    const overrideDefault = (event) => {
+        event.preventDefault()
+        event.stopPropagation()
+    }
+
+    const addFiles = (event) => {
+        const droppedFiles = event.target.files || event.dataTransfer.files
+
+        console.log(droppedFiles)
+
+        if (droppedFiles.length >= 1) {
+            fileLableText.innerText = `[ ${droppedFiles.length} file(s) selected ]`
+        }
+    }
+
+    const clicked = () => {
+        fileInput.click()
+    }
+
+</script>

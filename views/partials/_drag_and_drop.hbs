@@ -1,5 +1,13 @@
 <form action="/upload" id="dragFileForm" method="POST">
 
+    <div class="form-group">
+        <input type="text" class="form-control" id="folderName" aria-describedby="emailHelp" placeholder="Enter Folder Name"
+            required>
+        <small id="emailHelp" class="form-text text-muted">The uploaded data will be saved under this folder name on
+            the server PC<i class="fas fa-info-circle fa-1x ml-2"></i>
+        </small>
+    </div>
+
 
     <lable for="fileInput" id="fileLable" class="d-block p-3 bg-secondary text-white text-center pt-3 pb-3 mt-3 mb-3 text-capitalize lead rounded"
         style="height: 150px;" ondragover="overrideDefault(event)" ondragenter="overrideDefault(event)" ondragleave="overrideDefault(event)"

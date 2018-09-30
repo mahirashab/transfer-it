@@ -9,7 +9,7 @@
     </div>
 
 
-    <lable for="fileInput" id="fileLable" class="d-block p-3 bg-secondary text-white text-center pt-3 pb-3 mt-3 mb-3 text-capitalize lead rounded"
+    <lable for="fileInput" id="fileLable" class="d-block p-3 bg-secondary text-white text-center pt-3 pb-3 mt-4 mb-1 text-capitalize lead rounded"
         style="height: 150px;" ondragover="overrideDefault(event)" ondragenter="overrideDefault(event)" ondragleave="overrideDefault(event)"
         ondrop="overrideDefault(event);addFiles(event);" onclick="clicked()">
         <i class="fas fa-download fa-3x pb-2"></i>
@@ -18,9 +18,12 @@
 
     </lable>
 
-    <input type="file" name="files" id="fileInput" class="d-none" multiple onchange="addFiles(event)">
+    <input type="file" name="files" id="fileInput" class="d-none" multiple onchange="addFiles(event)" required>
 
-    <input type="submit" value="upload" class="btn btn-outline-primary btn-lg btn-block">
+    <small id="emailHelp" class="form-text text-muted mb-4">At least one file must be chosen<i class="fas fa-info-circle fa-1x ml-2"></i>
+    </small>
+
+    <input type="submit" value="upload" class="btn btn-outline-primary btn-lg btn-block mb-5">
 </form>
 
 <script type="text/javascript">

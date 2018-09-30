@@ -17,9 +17,11 @@
     "author": "Mahir Ashab",
     "license": "ISC",
     "dependencies": {
+        "body-parser": "^1.18.3",
         "express": "^4.16.3",
         "express-handlebars": "^3.0.0",
-        "express-hbs": "^1.0.4"
+        "express-hbs": "^1.0.4",
+        "morgan": "^1.9.1"
     },
     "devDependencies": {
         "nodemon": "^1.18.4"

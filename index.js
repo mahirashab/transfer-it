@@ -1,13 +1,26 @@
 const express = require("express")
+const morgan = require("morgan")
+const bodyParser = require("body-parser")
 const exphbs = require("express-hbs")
 
+// my routes
+const uploadRoute = require("./routes/upload")
+
+// create express app and port
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
-app.use((req, res, next) => {
-    next()
-})
+// using morgan for logging
+app.use(morgan("short"))
 
+// using body-parser
+app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
+
+// upload route middleware
+app.use("/upload", uploadRoute)
+
+// configure hbs engine
 app.engine(
     "handlebars",
     exphbs.express4({
@@ -20,21 +33,37 @@ app.engine(
     })
 )
 
+// setting view engine
 app.set("view engine", "handlebars")
 
-// const scripts = { script:  }
-
+// basic routes for main and about page
 app.get("/", (req, res) => {
-    res.render("index", {
+    res.status(200).render("index", {
         title: "Welcome",
         scripts: "./lib/drag_drop.js"
     })
 })
 
 app.get("/about", (req, res) => {
-    res.render("about")
+    res.status(200).render("about")
 })
 
+// handling errors
+app.use((req, res, next) => {
+    const err = new Error("Page not found")
+    err.status = 404
+    next(err)
+})
+
+app.use((err, req, res, next) => {
+    res.status(err.status || 500)
+    res.json({
+        massage: err.massage || "Page not found",
+        status: err.ststus || 404
+    })
+})
+
+// start listen to specified port
 app.listen(port, err => {
     console.log("         ")
     console.log(`App started on port ${port}`)

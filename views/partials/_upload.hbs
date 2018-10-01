@@ -1,0 +1,79 @@
+<div class="hidden">
+    <h1 class="display-3 text-center">
+        File Uploading
+    </h1>
+    <hr />
+
+    <div id="progressDiv">
+
+    </div>
+</div>
+
+{{> _tus}}
+
+<script>
+    let index = 0
+    const setData = (event) => {
+        if (droppedFiles.length >= 1) {
+            const hideshow = document.getElementById('hideshow')
+            hideshow.removeAttribute("style")
+
+            addThings()
+            startUpload(index)
+        }
+    }
+
+    const startUpload = (index) => {
+        var file = droppedFiles[index]
+
+        // Create a new tus upload
+        var upload = new tus.Upload(file, {
+            endpoint: "/upload",
+            retryDelays: [0, 1000, 3000, 5000],
+            metadata: {
+                filename: file.name,
+                filetype: file.type
+            },
+            onError: function (error) {
+                console.log("Failed because: " + error)
+            },
+            onProgress: function (bytesUploaded, bytesTotal) {
+                var percentage = (bytesUploaded / bytesTotal * 100).toFixed(2)
+
+                const progress = document.getElementById(`${file.name}statusbar`)
+
+                progress.setAttribute('aria-valuenow', `${bytesUploaded}`)
+                progress.setAttribute('style', `width: ${percentage}%;`)
+                progress.innerText = `${percentage}%`
+            },
+            onSuccess: function () {
+                console.log("Download %s from %s", upload.file.name, upload.url)
+
+                index++
+                startUpload(index)
+            }
+        })
+        upload.start()
+    }
+
+
+    const addThings = () => {
+        const mainDiv = document.getElementById('progressDiv')
+
+        for (let i = 0; i < droppedFiles.length; i++) {
+
+            mainDiv.innerHTML += `<div class="card mb-5">
+    <div class="card-header h3" id="${droppedFiles[i].name}">
+        ${droppedFiles[i].name}
+    </div>
+    <div class="card-body">
+        <h5 class="card-title lead" id="${droppedFiles[i].name}status">Uploading</h5>
+        <div class="progress">
+            <div class="progress-bar" role="progressbar" style="width: 0%;" aria-valuenow="0" aria-valuemin="0"
+                aria-valuemax="${droppedFiles[i].size}" id="${droppedFiles[i].name}statusbar">0%</div>
+        </div>
+    </div>
+</div><hr />`
+        }
+    }
+</script>

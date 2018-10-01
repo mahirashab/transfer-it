@@ -17,9 +17,6 @@ app.use(morgan("short"))
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-// upload route middleware
-app.use("/upload", uploadRoute)
-
 // configure hbs engine
 app.engine(
     "handlebars",
@@ -36,12 +33,12 @@ app.engine(
 // setting view engine
 app.set("view engine", "handlebars")
 
+// upload route middleware
+app.use("/upload", uploadRoute)
+
 // basic routes for main and about page
 app.get("/", (req, res) => {
-    res.status(200).render("index", {
-        title: "Welcome",
-        scripts: "./lib/drag_drop.js"
-    })
+    res.status(200).render("index")
 })
 
 app.get("/about", (req, res) => {
@@ -65,6 +62,7 @@ app.use((err, req, res, next) => {
 
 // start listen to specified port
 app.listen(port, err => {
+    if (err) throw err
     console.log("         ")
     console.log(`App started on port ${port}`)
 })

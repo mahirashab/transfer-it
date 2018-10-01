@@ -1,14 +1,4 @@
-<form action="/upload" id="dragFileForm" method="POST">
-
-    <div class="form-group">
-        <input type="text" class="form-control" id="folderName" aria-describedby="emailHelp" placeholder="Enter Folder Name"
-            required>
-        <small id="emailHelp" class="form-text text-muted">The uploaded data will be saved under this folder name on
-            the server PC<i class="fas fa-info-circle fa-1x ml-2"></i>
-        </small>
-    </div>
-
-
+<form id="dragFileForm">
     <lable for="fileInput" id="fileLable" class="d-block p-3 bg-secondary text-white text-center pt-3 pb-3 mt-4 mb-1 text-capitalize lead rounded"
         style="height: 150px;" ondragover="overrideDefault(event)" ondragenter="overrideDefault(event)" ondragleave="overrideDefault(event)"
         ondrop="overrideDefault(event);addFiles(event);" onclick="clicked()">
@@ -23,13 +13,14 @@
     <small id="emailHelp" class="form-text text-muted mb-4">At least one file must be chosen<i class="fas fa-info-circle fa-1x ml-2"></i>
     </small>
 
-    <input type="submit" value="upload" class="btn btn-outline-primary btn-lg btn-block mb-5">
+    <input type="button" value="upload" class="btn btn-outline-primary btn-lg btn-block mb-5" onclick="setData(event)">
 </form>
 
 <script type="text/javascript">
 
     const fileLableText = document.getElementById('fileLableText')
     const fileInput = document.getElementById('fileInput')
+    let droppedFiles
 
     const resetText = () => {
         fileInput.innerHTML = 'mahir'
@@ -41,9 +32,7 @@
     }
 
     const addFiles = (event) => {
-        const droppedFiles = event.target.files || event.dataTransfer.files
-
-        console.log(droppedFiles)
+        droppedFiles = event.target.files || event.dataTransfer.files
 
         if (droppedFiles.length >= 1) {
             fileLableText.innerText = `[ ${droppedFiles.length} file(s) selected ]`
@@ -53,5 +42,4 @@
     const clicked = () => {
         fileInput.click()
     }
-
 </script>

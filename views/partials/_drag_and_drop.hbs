@@ -21,6 +21,7 @@
     const fileLableText = document.getElementById('fileLableText')
     const fileInput = document.getElementById('fileInput')
     let droppedFiles
+    let add = true
 
     const resetText = () => {
         fileInput.innerHTML = 'mahir'
@@ -33,8 +34,8 @@
 
     const addFiles = (event) => {
         droppedFiles = event.target.files || event.dataTransfer.files
-
-        if (droppedFiles.length >= 1) {
+        add = true
+        if (droppedFiles.length >= 1 && add) {
             fileLableText.innerText = `[ ${droppedFiles.length} file(s) selected ]`
         }
     }

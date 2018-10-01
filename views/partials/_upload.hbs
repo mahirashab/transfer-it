@@ -54,7 +54,10 @@
                 status.innerText = 'Uploaded'
 
                 index++
-                startUpload(index)
+                if (droppedFiles[index] != undefined) {
+                    startUpload(index)
+                }
+
             }
         })
         upload.start()

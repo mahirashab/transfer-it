@@ -28,7 +28,7 @@ const metadataStringToObject = stringValue => {
     }, {})
 }
 
-server.on(tus.EVENTS.EVENT_UPLOAD_COMPLETE, event => {
+server.on(EVENTS.EVENT_UPLOAD_COMPLETE, event => {
     fs.rename(
         `./uploads/${event.file.id}`,
         `./uploads/${
